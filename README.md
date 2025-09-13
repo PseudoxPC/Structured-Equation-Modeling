@@ -1,7 +1,8 @@
-# Structured-Equation-Modeling
-
-> **Understanding the Use of Social Media in Medical Education — An Exploratory SEM Study**
-
+<!-- Banner -->
+<h1 align="center">Structured-Equation-Modeling</h1>
+<p align="center">
+  <b>Understanding the Use of Social Media in Medical Education — An Exploratory SEM Study</b>  
+</p>
 This repository contains all files, data, and analysis used for an exploratory study investigating how medical students use social media and whether social media usage relates to academic performance. The analysis uses **Structural Equation Modeling (SEM)** implemented in Python (Jupyter Notebook).
 
 ---
@@ -41,7 +42,7 @@ Key components in this repo:
 ---
 
 ## 📂 Repository Structure
-
+```bash
 ├── Objectives of the Study.docx
 ├── questionaire.pdf
 ├── sem_data.xlsx
@@ -51,6 +52,7 @@ Key components in this repo:
 ├── requirements.txt
 ├── README.md
 └── LICENSE
+```
 
 
 **What each file contains**
@@ -78,8 +80,10 @@ venv\Scripts\Activate.ps1
 
 # install requirements
 pip install -r requirements.txt
+```
 
-##requirements.txt 
+**requirements.txt** 
+```bash
 pandas
 numpy
 openpyxl
@@ -89,8 +93,9 @@ jupyter
 semopy 
 scipy
 statsmodels
+```
 
-▶️ Running the analysis
+**▶️ Running the analysis**
 
 Activate your virtual environment (see above).
 
@@ -113,7 +118,7 @@ saves fit statistics to sem_fit_statistics.csv and parameter estimates to sem_pa
 
 includes interpretation/plots for loadings, standardized effects, and fit indices
 
-✅ What to check in results
+## ✅ What to check in results
 
 Model fit indices: χ², df, p-value, CFI, TLI, RMSEA (with 90% CI), SRMR.
 
@@ -125,7 +130,7 @@ Modification indices (if used) — to consider theoretically-justified modificat
 
 Reliability & validity tests — Cronbach’s alpha / composite reliability, AVE.
 
-📝 Reporting & Outputs
+## 📝 Reporting & Outputs
 
 sem_fit_statistics.csv contains the main fit indices you will report in the Results section.
 
@@ -133,16 +138,9 @@ sem_parameter_estimates.csv contains factor loadings, regression weights, standa
 
 Use the notebook cells (already included) to copy plots and tables directly into your report.
 
-🤝 Contributors
+## 🤝 Contributors
+Rishi Sahu 
 
-Priyanshu Chouhan
-
-Krishna Gupta
-
-Prateek Batham
-
-Pratham Hande
-
-📜 License
+## 📜 License
 
 This project is released under the MIT License — see LICENSE for details.
