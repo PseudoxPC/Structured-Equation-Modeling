@@ -100,8 +100,10 @@ statsmodels
 Activate your virtual environment (see above).
 ```bash
 Start Jupyter Notebook / Lab: Jupyter notebook or Jupyter lab
-Open Sem_Model.ipynb and run the cells top-to-bottom. 
-The notebook: loads sem_data.xlsx preprocesses & encodes variables (scales, reverse-coded items if any) builds the SEM model (measurement model + structural paths) fits the model using semopy (or the SEM library used) saves fit statistics to sem_fit_statistics.csv and parameter estimates to sem_parameter_estimates.csv includes interpretation/plots for loadings, standardized effects, and fit indices
+
+Open 'Sem_Model.ipynb' and run the cells top-to-bottom. 
+
+The notebook: loads 'sem_data.xlsx' preprocesses & encodes variables (scales, reverse-coded items if any) builds the SEM model (measurement model + structural paths) fits the model using semopy (or the SEM library used) saves fit statistics to sem_fit_statistics.csv and parameter estimates to 'sem_parameter_estimates.csv' includes interpretation/plots for loadings, standardized effects, and fit indices
 ```
 
 ## ✅ What to check in results
