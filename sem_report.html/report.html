@@ -1,0 +1,1815 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Georgy Meshcheryakov">
+    <title>sem_report.html: Report</title>
+
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/semopy.css" rel="stylesheet">
+    <script src="./js/bootstrap.min.js"></script>
+    <style>nav .nav-link {
+    color: black;
+}
+nav .nav-link:hover {
+    color: grey;
+}
+nav .nav-link.active {
+    color: grey;
+}</style>
+
+
+  </head>
+  <body>
+<br><br>
+<div class="container-fluid">
+	<div class="row">
+	<div class="col-sm-8">
+	<h2 style="display:inline">Report: sem_report.html</h2>
+	</div>
+</div>
+<div class="container-fluid" >
+  <div class="row">
+    <div class="col-sm-2">
+     <br>
+     <div class="sticky-top">
+      <nav class="nav flex-column" >
+        <a class="p-1 nav-link active" id="model_m" href="#model">Model information</a>
+        <a class="p-1 nav-link" id="estimates_m" href="#estimates">Estimates</a>
+        <a class="p-1 nav-link" id="indices_m" href="#indices">Fit indices</a>
+	<a class="p-1 nav-link" id="matrices_m" href="#matrices">Matrices</a>
+      </nav>
+     </div>
+    </div>
+    <div class="col-sm-9" style="border-left: 1px solid">
+     <br>
+	<a class="anchor" id="model"></a>
+	<h3>Model information</h3>
+		<div class="row">
+		<div class="col-sm-4">Model class:</div><div class="col-sm-2"><span style="background-color: #f6f8fa; font-family: monospace;">Model</span></div>
+		</div>
+		<div class="row">
+		<div class="col-sm-4">Number of samples:</div><div class="col-sm-2">427</div>
+		</div>
+		<div class="row">
+		<div class="col-sm-4">Objective function:</div><div class="col-sm-2">MLW</div>
+		</div>
+		<div class="row">
+		<div class="col-sm-4">Converged:</div><div class="col-sm-2 text-success">Yes</div>
+		</div>
+		<br>
+		Description in <b>semopy</b> syntax:
+		<div class="col-sm-9" style="background-color: #f6f8fa;max-width: 100%;width: 100%;border: 1px solid">
+		<pre style="font-family: monospace">
+    # ===== MEASUREMENT MODEL =====
+    SocialMediaUse =~ platform_count + frequency_encoded
+    DigitalLiteracy =~ digital_literacy
+    TrainingInterest =~ training_interest
+    AcademicBenefit =~ helps_exam + expert_access + enhances_collab
+    MisinformationAwareness =~ aware_misinfo + active_verify
+    VerificationBehavior =~ checks_source
+
+    # ===== STRUCTURAL MODEL (SIMPLIFIED) =====
+    # Only keeping significant and theoretically meaningful paths
+    AcademicBenefit ~ DigitalLiteracy
+    VerificationBehavior ~ MisinformationAwareness
+    MisinformationAwareness ~ SocialMediaUse
+
+    # ===== COVARIANCES (ADDITIONAL FOR BETTER FIT) =====
+    # Among exogenous variables
+    DigitalLiteracy ~~ SocialMediaUse
+    DigitalLiteracy ~~ TrainingInterest
+    SocialMediaUse ~~ TrainingInterest
+
+    # Among indicator residuals (based on modification indices)
+    helps_exam ~~ enhances_collab
+    expert_access ~~ enhances_collab
+    aware_misinfo ~~ active_verify
+
+    # Additional error covariances for better fit
+    helps_exam ~~ expert_access
+    platform_count ~~ frequency_encoded
+    digital_literacy ~~ training_interest
+
+    # Residual covariances for endogenous variables
+    AcademicBenefit ~~ TrainingInterest
+    AcademicBenefit ~~ SocialMediaUse
+    MisinformationAwareness ~~ DigitalLiteracy
+</pre>
+		</div>
+		<br>
+		<div class="accordion" id="accordion1">
+		<div class="accordion-item">
+	    <h2 class="accordion-header" id="headingOne">
+	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+		Variables classification
+	      </button>
+	    </h2>
+	    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordion1">
+	      <div class="accordion-body">
+		<div class="row"><div class="col-sm-2">all</div><div class="col-sm-6">helps_exam, aware_misinfo, checks_source, DigitalLiteracy, platform_count, enhances_collab, digital_literacy, training_interest, active_verify, TrainingInterest, frequency_encoded, VerificationBehavior, expert_access, MisinformationAwareness, AcademicBenefit, SocialMediaUse</div></div><div class="row"><div class="col-sm-2">endogenous</div><div class="col-sm-6">helps_exam, aware_misinfo, checks_source, platform_count, enhances_collab, digital_literacy, training_interest, active_verify, frequency_encoded, VerificationBehavior, expert_access, MisinformationAwareness, AcademicBenefit</div></div><div class="row"><div class="col-sm-2">exogenous</div><div class="col-sm-6">SocialMediaUse, TrainingInterest, DigitalLiteracy</div></div><div class="row"><div class="col-sm-2">observed</div><div class="col-sm-6">active_verify, aware_misinfo, checks_source, digital_literacy, enhances_collab, expert_access, frequency_encoded, helps_exam, platform_count, training_interest</div></div><div class="row"><div class="col-sm-2">latent</div><div class="col-sm-6">TrainingInterest, VerificationBehavior, DigitalLiteracy, MisinformationAwareness, AcademicBenefit, SocialMediaUse</div></div><div class="row"><div class="col-sm-2">indicator</div><div class="col-sm-6">active_verify, helps_exam, frequency_encoded, aware_misinfo, checks_source, expert_access, platform_count, enhances_collab, digital_literacy, training_interest</div></div><div class="row"><div class="col-sm-2">output</div><div class="col-sm-6"></div></div><div class="row"><div class="col-sm-2">_output</div><div class="col-sm-6">active_verify, helps_exam, aware_misinfo, frequency_encoded, checks_source, expert_access, platform_count, enhances_collab, digital_literacy, training_interest</div></div><div class="row"><div class="col-sm-2">inner</div><div class="col-sm-6">AcademicBenefit, DigitalLiteracy, MisinformationAwareness, SocialMediaUse, TrainingInterest, VerificationBehavior</div></div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<br>
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+		  <li class="nav-item" role="presentation">
+		    <button class="nav-link active" id="plainfig-tab" data-bs-toggle="tab" data-bs-target="#plainfig" type="button" role="tab" aria-controls="plainfig" aria-selected="true">Omit covariances and estimates</button>
+		  </li>
+		  <li class="nav-item" role="presentation">
+		    <button class="nav-link" id="covfig-tab" data-bs-toggle="tab" data-bs-target="#covfig" type="button" role="tab" aria-controls="covfig" aria-selected="false">Omit covariances</button>
+		  </li>
+		  <li class="nav-item" role="presentation">
+		    <button class="nav-link" id="plainparamfig-tab" data-bs-toggle="tab" data-bs-target="#plainparamfig" type="button" role="tab" aria-controls="plainparamfig" aria-selected="false">Omit estimates</button>
+		  </li>
+		<li class="nav-item" role="presentation">
+		    <button class="nav-link" id="covparamfig-tab" data-bs-toggle="tab" data-bs-target="#covparamfig" type="button" role="tab" aria-controls="covparamfig" aria-selected="false">Show estimates and covariances</button>
+		  </li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+		  <div class="tab-pane fade show active" id="plainfig" role="tabpanel" aria-labelledby="plainfig-tab"><img src="./plots/1.png" class="img-fluid" alt="Model figure with covariances and estimates omitted"></div>
+		  <div class="tab-pane fade" id="covfig" role="tabpanel" aria-labelledby="covfig-tab"><img src="./plots/2.png" class="img-fluid" alt="Model figure with covariances omitted"></div>
+		  <div class="tab-pane fade" id="plainparamfig" role="tabpanel" aria-labelledby="plainparamfig-tab"><img src="./plots/3.png" class="img-fluid" alt="Model figure with estimates omitted"></div>
+		 <div class="tab-pane fade" id="covparamfig" role="tabpanel" aria-labelledby="covparamfig-tab"><img src="./plots/4.png" class="img-fluid" alt="Model figure"></div>
+		</div>
+		
+	<a class="anchor" id="estimates"></a>
+	<h3>Estimates</h3>
+	<div style="font-family:monospace">
+	<div class="row"><div class='col-sm-2'></div><div class='col-sm-2'></div><div class='col-sm-1'>Estimate</div><div class='col-sm-1'>P-value</div></div><div class='col-sm-2'>Measurement:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>SocialMediaUse =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>platform_count</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>frequency_encoded</div><div class='col-sm-1'>0.157</div><div class='col-sm-1'>0.218</div></div><div class="row"><div class='col-sm-2 text-end'>DigitalLiteracy =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>digital_literacy</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>TrainingInterest =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>training_interest</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'>AcademicBenefit =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>helps_exam</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>expert_access</div><div class='col-sm-1'>1.149</div><div class='col-sm-1'>0.017</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>enhances_collab</div><div class='col-sm-1'>2.526</div><div class='col-sm-1'>0.003</div></div><div class="row"><div class='col-sm-2 text-end'>MisinformationAwareness =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>aware_misinfo</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>active_verify</div><div class='col-sm-1'>5.412</div><div class='col-sm-1'>0.008</div></div><div class="row"><div class='col-sm-2 text-end'>VerificationBehavior =~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>checks_source</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>-</div></div><div class='col-sm-2'>Regressions:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'>AcademicBenefit ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>DigitalLiteracy</div><div class='col-sm-1'>1.162</div><div class='col-sm-1'>0.488</div></div><div class="row"><div class='col-sm-2 text-end'>VerificationBehavior ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>MisinformationAwareness</div><div class='col-sm-1'>2.239</div><div class='col-sm-1'>0.185</div></div><div class="row"><div class='col-sm-2 text-end'>MisinformationAwareness ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>SocialMediaUse</div><div class='col-sm-1'>0.120</div><div class='col-sm-1'>0.135</div></div><div class='col-sm-2'>Variances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>DigitalLiteracy</div><div class='col-sm-1'>0.027</div><div class='col-sm-1'>0.503</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>SocialMediaUse</div><div class='col-sm-1'>0.012</div><div class='col-sm-1'>0.733</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>AcademicBenefit</div><div class='col-sm-1'>0.000</div><div class='col-sm-1'>1.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>MisinformationAwareness</div><div class='col-sm-1'>0.005</div><div class='col-sm-1'>0.313</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>TrainingInterest</div><div class='col-sm-1'>0.275</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>VerificationBehavior</div><div class='col-sm-1'>0.082</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>helps_exam</div><div class='col-sm-1'>0.209</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>expert_access</div><div class='col-sm-1'>0.185</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>aware_misinfo</div><div class='col-sm-1'>0.038</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>platform_count</div><div class='col-sm-1'>0.987</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>digital_literacy</div><div class='col-sm-1'>0.972</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>active_verify</div><div class='col-sm-1'>0.097</div><div class='col-sm-1'>0.290</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>checks_source</div><div class='col-sm-1'>0.144</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>enhances_collab</div><div class='col-sm-1'>0.000</div><div class='col-sm-1'>1.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>frequency_encoded</div><div class='col-sm-1'>1.000</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>training_interest</div><div class='col-sm-1'>0.725</div><div class='col-sm-1'>0.000</div></div><div class="row"><div class='col-sm-2'>Covariances:</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'>DigitalLiteracy ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>SocialMediaUse</div><div class='col-sm-1'>0.126</div><div class='col-sm-1'>0.009</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>TrainingInterest</div><div class='col-sm-1'>-0.043</div><div class='col-sm-1'>0.157</div></div><div class="row"><div class='col-sm-2 text-end'>SocialMediaUse ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>TrainingInterest</div><div class='col-sm-1'>0.105</div><div class='col-sm-1'>0.031</div></div><div class="row"><div class='col-sm-2 text-end'>AcademicBenefit ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>TrainingInterest</div><div class='col-sm-1'>0.068</div><div class='col-sm-1'>0.148</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>SocialMediaUse</div><div class='col-sm-1'>-0.080</div><div class='col-sm-1'>0.649</div></div><div class="row"><div class='col-sm-2 text-end'>MisinformationAwareness ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>DigitalLiteracy</div><div class='col-sm-1'>-0.006</div><div class='col-sm-1'>0.596</div></div><div class="row"><div class='col-sm-2 text-end'>helps_exam ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>enhances_collab</div><div class='col-sm-1'>-0.046</div><div class='col-sm-1'>0.058</div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>expert_access</div><div class='col-sm-1'>-0.025</div><div class='col-sm-1'>0.146</div></div><div class="row"><div class='col-sm-2 text-end'>expert_access ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>enhances_collab</div><div class='col-sm-1'>-0.055</div><div class='col-sm-1'>0.012</div></div><div class="row"><div class='col-sm-2 text-end'>aware_misinfo ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>active_verify</div><div class='col-sm-1'>0.002</div><div class='col-sm-1'>0.913</div></div><div class="row"><div class='col-sm-2 text-end'>platform_count ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>frequency_encoded</div><div class='col-sm-1'>0.101</div><div class='col-sm-1'>0.037</div></div><div class="row"><div class='col-sm-2 text-end'>digital_literacy ~</div><div class='col-sm-2'></div><div class='col-sm-1'></div><div class='col-sm-1'></div></div><div class="row"><div class='col-sm-2 text-end'></div><div class='col-sm-2'>training_interest</div><div class='col-sm-1'>0.023</div><div class='col-sm-1'>0.579</div></div>
+	</div>
+	<br>
+	<div class="accordion" id="accordion3">
+	<div class="accordion-item">
+	    <h2 class="accordion-header" id="headingThree">
+	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+		semopy tabular output
+	      </button>
+	    </h2>	
+	    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordion3">
+	      <div class="accordion-body" style="background-color: #f6f8fa;max-width: 100%;width: 100%">
+		<pre style="font-family: monospace">                       lval  op                     rval      Estimate  \
+0           AcademicBenefit   ~          DigitalLiteracy  1.162136e+00   
+1      VerificationBehavior   ~  MisinformationAwareness  2.238644e+00   
+2   MisinformationAwareness   ~           SocialMediaUse  1.201478e-01   
+3            platform_count   ~           SocialMediaUse  1.000000e+00   
+4         frequency_encoded   ~           SocialMediaUse  1.565714e-01   
+5          digital_literacy   ~          DigitalLiteracy  1.000000e+00   
+6         training_interest   ~         TrainingInterest  1.000000e+00   
+7                helps_exam   ~          AcademicBenefit  1.000000e+00   
+8             expert_access   ~          AcademicBenefit  1.149466e+00   
+9           enhances_collab   ~          AcademicBenefit  2.526372e+00   
+10            aware_misinfo   ~  MisinformationAwareness  1.000000e+00   
+11            active_verify   ~  MisinformationAwareness  5.411702e+00   
+12            checks_source   ~     VerificationBehavior  1.000000e+00   
+13          DigitalLiteracy  ~~           SocialMediaUse  1.262755e-01   
+14          DigitalLiteracy  ~~         TrainingInterest -4.284825e-02   
+15          DigitalLiteracy  ~~          DigitalLiteracy  2.686352e-02   
+16           SocialMediaUse  ~~         TrainingInterest  1.045496e-01   
+17           SocialMediaUse  ~~           SocialMediaUse  1.234940e-02   
+18          AcademicBenefit  ~~         TrainingInterest  6.820067e-02   
+19          AcademicBenefit  ~~           SocialMediaUse -7.999732e-02   
+20          AcademicBenefit  ~~          AcademicBenefit  0.000000e+00   
+21  MisinformationAwareness  ~~          DigitalLiteracy -6.094577e-03   
+22  MisinformationAwareness  ~~  MisinformationAwareness  4.550495e-03   
+23         TrainingInterest  ~~         TrainingInterest  2.750146e-01   
+24     VerificationBehavior  ~~     VerificationBehavior  8.227473e-02   
+25               helps_exam  ~~          enhances_collab -4.573834e-02   
+26               helps_exam  ~~            expert_access -2.493347e-02   
+27               helps_exam  ~~               helps_exam  2.085868e-01   
+28            expert_access  ~~          enhances_collab -5.544759e-02   
+29            expert_access  ~~            expert_access  1.845446e-01   
+30            aware_misinfo  ~~            active_verify  2.046027e-03   
+31            aware_misinfo  ~~            aware_misinfo  3.784775e-02   
+32           platform_count  ~~        frequency_encoded  1.011160e-01   
+33           platform_count  ~~           platform_count  9.871656e-01   
+34         digital_literacy  ~~        training_interest  2.322616e-02   
+35         digital_literacy  ~~         digital_literacy  9.721216e-01   
+36            active_verify  ~~            active_verify  9.730713e-02   
+37            checks_source  ~~            checks_source  1.439278e-01   
+38          enhances_collab  ~~          enhances_collab  5.712439e-18   
+39        frequency_encoded  ~~        frequency_encoded  9.996117e-01   
+40        training_interest  ~~        training_interest  7.250146e-01   
+
+    Std. Err    z-value   p-value  
+0   1.674687   0.693942  0.487718  
+1   1.687921   1.326273  0.184749  
+2   0.080347   1.495371  0.134818  
+3          -          -         -  
+4   0.127001   1.232839  0.217636  
+5          -          -         -  
+6          -          -         -  
+7          -          -         -  
+8   0.483762   2.376096  0.017497  
+9   0.840602    3.00543  0.002652  
+10         -          -         -  
+11  2.053044   2.635941   0.00839  
+12         -          -         -  
+13   0.04868   2.593981  0.009487  
+14  0.030278  -1.415179  0.157016  
+15  0.040143   0.669196   0.50337  
+16  0.048582   2.152019  0.031396  
+17  0.036211   0.341042  0.733072  
+18  0.047137   1.446876  0.147932  
+19  0.175926  -0.454722  0.649309  
+20  0.048991        0.0       1.0  
+21  0.011484  -0.530723  0.595611  
+22  0.004514   1.008123  0.313395  
+23   0.03422   8.036593       0.0  
+24  0.011003   7.477262       0.0  
+25  0.024127   -1.89571  0.057998  
+26  0.017147  -1.454076  0.145925  
+27  0.024894    8.37897       0.0  
+28  0.022186  -2.499207  0.012447  
+29   0.02555   7.222882       0.0  
+30  0.018791   0.108881  0.913297  
+31  0.005097   7.425921       0.0  
+32  0.048362   2.090812  0.036545  
+33  0.075899  13.006269       0.0  
+34   0.04188   0.554595  0.579172  
+35  0.076069  12.779443       0.0  
+36  0.091919    1.05862  0.289773  
+37  0.011003  13.080392       0.0  
+38  0.019045        0.0       1.0  
+39  0.068399  14.614466       0.0  
+40   0.03422  21.186685       0.0  </pre>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<br>
+	<div class="accordion" id="accordion2">
+	<div class="accordion-item">
+	    <h2 class="accordion-header" id="headingTwo">
+	      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+		Optimizer report
+	      </button>
+	    </h2>	
+	    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordion2">
+	      <div class="accordion-body" style="background-color: #f6f8fa;max-width: 100%;width: 100%">
+		<pre style="font-family: monospace">Name of objective: MLW
+Optimization method: SLSQP
+Optimization successful.
+Optimization terminated successfully
+Objective value: 0.091
+Number of iterations: 115
+Params: 0.157 1.149 2.526 5.412 1.162 2.239 0.120 0.126 -0.043 0.027 0.105 0.012 -0.046 -0.025 0.209 -0.055 0.185 0.002 0.038 0.101 0.987 0.023 0.972 0.068 -0.080 0.000 -0.006 0.005 0.275 0.082 0.097 0.144 0.000 1.000 0.725</pre>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<a class="anchor" id="indices"></a>
+	<h3>Fit indices</h3>
+	<table class="table"><thead><tr><th scope='col'>DoF</th><th scope='col'>DoF Baseline</th><th scope='col'>chi2</th><th scope='col'>chi2 p-value</th><th scope='col'>chi2 Baseline</th></tr></thead><tbody><tr><td>20.000</td><td>45.000</td><td>38.806</td><td>0.007</td><td>238.268</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>CFI</th><th scope='col'>GFI</th><th scope='col'>AGFI</th><th scope='col'>NFI</th><th scope='col'>TLI</th></tr></thead><tbody><tr><td>0.903</td><td>0.837</td><td>0.634</td><td>0.837</td><td>0.781</td></tr></tbody></table><table class="table"><thead><tr><th scope='col'>RMSEA</th><th scope='col'>AIC</th><th scope='col'>BIC</th><th scope='col'>LogLik</th></tr></thead><tbody><tr><td>0.047</td><td>69.818</td><td>211.806</td><td>0.091</td></tr></tbody></table>
+	<a class="anchor" id="matrices"></a>
+	<h3>Matrices</h3>
+ 	<center><h4>Covariance matrix</h4></center>
+<ul class="nav nav-tabs" id="cov" role="tablist"><li class="nav-item" role="presentation">
+<button class="nav-link active" id="sample-tab" data-bs-toggle="tab" data-bs-target="#sample"
+type="button" role="tab" aria-controls="sample" aria-selected="true">Sample</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="modelimplied-tab" data-bs-toggle="tab" data-bs-target="#modelimplied"
+type="button" role="tab" aria-controls="modelimplied" aria-selected="false">Model-implied</button>
+</li></ul><div class="tab-content" id="covContent"><div class="tab-pane fade show active" id="sample" role="tabpanel" aria-labelledby="sample-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>active_verify</th>
+      <th>aware_misinfo</th>
+      <th>checks_source</th>
+      <th>digital_literacy</th>
+      <th>enhances_collab</th>
+      <th>expert_access</th>
+      <th>frequency_encoded</th>
+      <th>helps_exam</th>
+      <th>platform_count</th>
+      <th>training_interest</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>active_verify</th>
+      <td>0.24</td>
+      <td>0.03</td>
+      <td>0.06</td>
+      <td>0.07</td>
+      <td>0.01</td>
+      <td>0.03</td>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>0.00</td>
+      <td>0.06</td>
+    </tr>
+    <tr>
+      <th>aware_misinfo</th>
+      <td>0.03</td>
+      <td>0.04</td>
+      <td>0.01</td>
+      <td>-0.00</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>-0.00</td>
+      <td>0.02</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <th>checks_source</th>
+      <td>0.06</td>
+      <td>0.01</td>
+      <td>0.25</td>
+      <td>-0.01</td>
+      <td>-0.00</td>
+      <td>0.02</td>
+      <td>-0.04</td>
+      <td>-0.02</td>
+      <td>-0.01</td>
+      <td>0.05</td>
+    </tr>
+    <tr>
+      <th>digital_literacy</th>
+      <td>0.07</td>
+      <td>-0.00</td>
+      <td>-0.01</td>
+      <td>1.00</td>
+      <td>0.07</td>
+      <td>0.06</td>
+      <td>0.10</td>
+      <td>0.04</td>
+      <td>0.11</td>
+      <td>-0.02</td>
+    </tr>
+    <tr>
+      <th>enhances_collab</th>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>-0.00</td>
+      <td>0.07</td>
+      <td>0.23</td>
+      <td>0.05</td>
+      <td>0.01</td>
+      <td>0.05</td>
+      <td>0.17</td>
+      <td>0.05</td>
+    </tr>
+    <tr>
+      <th>expert_access</th>
+      <td>0.03</td>
+      <td>0.01</td>
+      <td>0.02</td>
+      <td>0.06</td>
+      <td>0.05</td>
+      <td>0.23</td>
+      <td>0.01</td>
+      <td>0.02</td>
+      <td>0.06</td>
+      <td>0.04</td>
+    </tr>
+    <tr>
+      <th>frequency_encoded</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>-0.04</td>
+      <td>0.10</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>1.00</td>
+      <td>0.06</td>
+      <td>0.10</td>
+      <td>-0.02</td>
+    </tr>
+    <tr>
+      <th>helps_exam</th>
+      <td>-0.00</td>
+      <td>-0.00</td>
+      <td>-0.02</td>
+      <td>0.04</td>
+      <td>0.05</td>
+      <td>0.02</td>
+      <td>0.06</td>
+      <td>0.24</td>
+      <td>0.07</td>
+      <td>-0.02</td>
+    </tr>
+    <tr>
+      <th>platform_count</th>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>-0.01</td>
+      <td>0.11</td>
+      <td>0.17</td>
+      <td>0.06</td>
+      <td>0.10</td>
+      <td>0.07</td>
+      <td>1.00</td>
+      <td>0.12</td>
+    </tr>
+    <tr>
+      <th>training_interest</th>
+      <td>0.06</td>
+      <td>0.02</td>
+      <td>0.05</td>
+      <td>-0.02</td>
+      <td>0.05</td>
+      <td>0.04</td>
+      <td>-0.02</td>
+      <td>-0.02</td>
+      <td>0.12</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="modelimplied" role="tabpanel" aria-labelledby="modelimplied-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>active_verify</th>
+      <th>aware_misinfo</th>
+      <th>checks_source</th>
+      <th>digital_literacy</th>
+      <th>enhances_collab</th>
+      <th>expert_access</th>
+      <th>frequency_encoded</th>
+      <th>helps_exam</th>
+      <th>platform_count</th>
+      <th>training_interest</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>active_verify</th>
+      <td>0.24</td>
+      <td>0.03</td>
+      <td>0.06</td>
+      <td>0.05</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>0.07</td>
+    </tr>
+    <tr>
+      <th>aware_misinfo</th>
+      <td>0.03</td>
+      <td>0.04</td>
+      <td>0.01</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.01</td>
+    </tr>
+    <tr>
+      <th>checks_source</th>
+      <td>0.06</td>
+      <td>0.01</td>
+      <td>0.25</td>
+      <td>0.02</td>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.03</td>
+    </tr>
+    <tr>
+      <th>digital_literacy</th>
+      <td>0.05</td>
+      <td>0.01</td>
+      <td>0.02</td>
+      <td>1.00</td>
+      <td>0.08</td>
+      <td>0.04</td>
+      <td>0.02</td>
+      <td>0.03</td>
+      <td>0.13</td>
+      <td>-0.02</td>
+    </tr>
+    <tr>
+      <th>enhances_collab</th>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.01</td>
+      <td>0.08</td>
+      <td>0.23</td>
+      <td>0.05</td>
+      <td>0.03</td>
+      <td>0.05</td>
+      <td>0.17</td>
+      <td>0.05</td>
+    </tr>
+    <tr>
+      <th>expert_access</th>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.04</td>
+      <td>0.05</td>
+      <td>0.23</td>
+      <td>0.01</td>
+      <td>0.02</td>
+      <td>0.08</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <th>frequency_encoded</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>0.03</td>
+      <td>0.01</td>
+      <td>1.00</td>
+      <td>0.01</td>
+      <td>0.10</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <th>helps_exam</th>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.03</td>
+      <td>0.05</td>
+      <td>0.02</td>
+      <td>0.01</td>
+      <td>0.24</td>
+      <td>0.07</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <th>platform_count</th>
+      <td>0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.13</td>
+      <td>0.17</td>
+      <td>0.08</td>
+      <td>0.10</td>
+      <td>0.07</td>
+      <td>1.00</td>
+      <td>0.10</td>
+    </tr>
+    <tr>
+      <th>training_interest</th>
+      <td>0.07</td>
+      <td>0.01</td>
+      <td>0.03</td>
+      <td>-0.02</td>
+      <td>0.05</td>
+      <td>0.02</td>
+      <td>0.02</td>
+      <td>0.02</td>
+      <td>0.10</td>
+      <td>1.00</td>
+    </tr>
+  </tbody>
+</table></div></div><br><center><h4>Model matrices</h4></center><ul class="nav nav-tabs" id="modelmatrices" role="tablist"><li class="nav-item" role="presentation">
+<button class="nav-link active" id="mxBeta-tab" data-bs-toggle="tab" data-bs-target="#mxBeta"
+type="button" role="tab" aria-controls="mxBeta" aria-selected="true">Beta</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="mxLambda-tab" data-bs-toggle="tab" data-bs-target="#mxLambda"
+type="button" role="tab" aria-controls="mxLambda" aria-selected="false">Lambda</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="mxPsi-tab" data-bs-toggle="tab" data-bs-target="#mxPsi"
+type="button" role="tab" aria-controls="mxPsi" aria-selected="false">Psi</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="mxTheta-tab" data-bs-toggle="tab" data-bs-target="#mxTheta"
+type="button" role="tab" aria-controls="mxTheta" aria-selected="false">Theta</button>
+</li></ul><div class="tab-content" id="covContent"><div class="tab-pane fade show active" id="mxBeta" role="tabpanel" aria-labelledby="mxBeta-tab"><ul class="nav nav-tabs" id="Betasub" role="tablist"><li class="nav-item" role="presentation">
+<button class="nav-link active" id="BetaEstimates-tab" data-bs-toggle="tab" data-bs-target="#BetaEstimates"
+type="button" role="tab" aria-controls="BetaEstimates" aria-selected="true">Estimates</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="BetaStart-tab" data-bs-toggle="tab" data-bs-target="#BetaStart"
+type="button" role="tab" aria-controls="BetaStart" aria-selected="false">Start</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="BetaNames-tab" data-bs-toggle="tab" data-bs-target="#BetaNames"
+type="button" role="tab" aria-controls="BetaNames" aria-selected="false">Names</button>
+</li></ul><div class="tab-content" id="sem_report.htmlsubContent"><div class="tab-pane fade show active" id="BetaEstimates" role="tabpanel" aria-labelledby="BetaEstimates-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>AcademicBenefit</th>
+      <th>DigitalLiteracy</th>
+      <th>MisinformationAwareness</th>
+      <th>SocialMediaUse</th>
+      <th>TrainingInterest</th>
+      <th>VerificationBehavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AcademicBenefit</th>
+      <td>0.00</td>
+      <td>1.16</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>DigitalLiteracy</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>MisinformationAwareness</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.12</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>SocialMediaUse</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>TrainingInterest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>VerificationBehavior</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>2.24</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="BetaStart" role="tabpanel" aria-labelledby="BetaStart-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>AcademicBenefit</th>
+      <th>DigitalLiteracy</th>
+      <th>MisinformationAwareness</th>
+      <th>SocialMediaUse</th>
+      <th>TrainingInterest</th>
+      <th>VerificationBehavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AcademicBenefit</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>DigitalLiteracy</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>MisinformationAwareness</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>SocialMediaUse</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>TrainingInterest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>VerificationBehavior</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="BetaNames" role="tabpanel" aria-labelledby="BetaNames-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>AcademicBenefit</th>
+      <th>DigitalLiteracy</th>
+      <th>MisinformationAwareness</th>
+      <th>SocialMediaUse</th>
+      <th>TrainingInterest</th>
+      <th>VerificationBehavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AcademicBenefit</th>
+      <td>0.00</td>
+      <td>_b11</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>DigitalLiteracy</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>MisinformationAwareness</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b13</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>SocialMediaUse</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>TrainingInterest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>VerificationBehavior</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b12</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table></div></div></div><div class="tab-pane fade " id="mxLambda" role="tabpanel" aria-labelledby="mxLambda-tab"><ul class="nav nav-tabs" id="Lambdasub" role="tablist"><li class="nav-item" role="presentation">
+<button class="nav-link active" id="LambdaEstimates-tab" data-bs-toggle="tab" data-bs-target="#LambdaEstimates"
+type="button" role="tab" aria-controls="LambdaEstimates" aria-selected="true">Estimates</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="LambdaStart-tab" data-bs-toggle="tab" data-bs-target="#LambdaStart"
+type="button" role="tab" aria-controls="LambdaStart" aria-selected="false">Start</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="LambdaNames-tab" data-bs-toggle="tab" data-bs-target="#LambdaNames"
+type="button" role="tab" aria-controls="LambdaNames" aria-selected="false">Names</button>
+</li></ul><div class="tab-content" id="sem_report.htmlsubContent"><div class="tab-pane fade show active" id="LambdaEstimates" role="tabpanel" aria-labelledby="LambdaEstimates-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>AcademicBenefit</th>
+      <th>DigitalLiteracy</th>
+      <th>MisinformationAwareness</th>
+      <th>SocialMediaUse</th>
+      <th>TrainingInterest</th>
+      <th>VerificationBehavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>active_verify</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>5.41</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>aware_misinfo</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>checks_source</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>digital_literacy</th>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>enhances_collab</th>
+      <td>2.53</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>expert_access</th>
+      <td>1.15</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>frequency_encoded</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.16</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>helps_exam</th>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>platform_count</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>training_interest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="LambdaStart" role="tabpanel" aria-labelledby="LambdaStart-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>AcademicBenefit</th>
+      <th>DigitalLiteracy</th>
+      <th>MisinformationAwareness</th>
+      <th>SocialMediaUse</th>
+      <th>TrainingInterest</th>
+      <th>VerificationBehavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>active_verify</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.65</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>aware_misinfo</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>checks_source</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+    </tr>
+    <tr>
+      <th>digital_literacy</th>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>enhances_collab</th>
+      <td>0.19</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>expert_access</th>
+      <td>0.07</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>frequency_encoded</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.10</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>helps_exam</th>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>platform_count</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>training_interest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="LambdaNames" role="tabpanel" aria-labelledby="LambdaNames-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>AcademicBenefit</th>
+      <th>DigitalLiteracy</th>
+      <th>MisinformationAwareness</th>
+      <th>SocialMediaUse</th>
+      <th>TrainingInterest</th>
+      <th>VerificationBehavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>active_verify</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b9</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>aware_misinfo</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b8</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>checks_source</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b10</td>
+    </tr>
+    <tr>
+      <th>digital_literacy</th>
+      <td>0.00</td>
+      <td>_b3</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>enhances_collab</th>
+      <td>_b7</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>expert_access</th>
+      <td>_b6</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>frequency_encoded</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b2</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>helps_exam</th>
+      <td>_b5</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>platform_count</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b1</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>training_interest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_b4</td>
+      <td>0.00</td>
+    </tr>
+  </tbody>
+</table></div></div></div><div class="tab-pane fade " id="mxPsi" role="tabpanel" aria-labelledby="mxPsi-tab"><ul class="nav nav-tabs" id="Psisub" role="tablist"><li class="nav-item" role="presentation">
+<button class="nav-link active" id="PsiEstimates-tab" data-bs-toggle="tab" data-bs-target="#PsiEstimates"
+type="button" role="tab" aria-controls="PsiEstimates" aria-selected="true">Estimates</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="PsiStart-tab" data-bs-toggle="tab" data-bs-target="#PsiStart"
+type="button" role="tab" aria-controls="PsiStart" aria-selected="false">Start</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="PsiNames-tab" data-bs-toggle="tab" data-bs-target="#PsiNames"
+type="button" role="tab" aria-controls="PsiNames" aria-selected="false">Names</button>
+</li></ul><div class="tab-content" id="sem_report.htmlsubContent"><div class="tab-pane fade show active" id="PsiEstimates" role="tabpanel" aria-labelledby="PsiEstimates-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>AcademicBenefit</th>
+      <th>DigitalLiteracy</th>
+      <th>MisinformationAwareness</th>
+      <th>SocialMediaUse</th>
+      <th>TrainingInterest</th>
+      <th>VerificationBehavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AcademicBenefit</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>-0.08</td>
+      <td>0.07</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>DigitalLiteracy</th>
+      <td>0.00</td>
+      <td>0.03</td>
+      <td>-0.01</td>
+      <td>0.13</td>
+      <td>-0.04</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>MisinformationAwareness</th>
+      <td>0.00</td>
+      <td>-0.01</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>SocialMediaUse</th>
+      <td>-0.08</td>
+      <td>0.13</td>
+      <td>0.00</td>
+      <td>0.01</td>
+      <td>0.10</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>TrainingInterest</th>
+      <td>0.07</td>
+      <td>-0.04</td>
+      <td>0.00</td>
+      <td>0.10</td>
+      <td>0.28</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>VerificationBehavior</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.08</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="PsiStart" role="tabpanel" aria-labelledby="PsiStart-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>AcademicBenefit</th>
+      <th>DigitalLiteracy</th>
+      <th>MisinformationAwareness</th>
+      <th>SocialMediaUse</th>
+      <th>TrainingInterest</th>
+      <th>VerificationBehavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AcademicBenefit</th>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>DigitalLiteracy</th>
+      <td>0.00</td>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>MisinformationAwareness</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>SocialMediaUse</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.05</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>TrainingInterest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.05</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>VerificationBehavior</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.05</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="PsiNames" role="tabpanel" aria-labelledby="PsiNames-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>AcademicBenefit</th>
+      <th>DigitalLiteracy</th>
+      <th>MisinformationAwareness</th>
+      <th>SocialMediaUse</th>
+      <th>TrainingInterest</th>
+      <th>VerificationBehavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AcademicBenefit</th>
+      <td>_c19</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c18</td>
+      <td>_c17</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>DigitalLiteracy</th>
+      <td>0.00</td>
+      <td>_c3</td>
+      <td>_c20</td>
+      <td>_c1</td>
+      <td>_c2</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>MisinformationAwareness</th>
+      <td>0.00</td>
+      <td>_c20</td>
+      <td>_c21</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>SocialMediaUse</th>
+      <td>_c18</td>
+      <td>_c1</td>
+      <td>0.00</td>
+      <td>_c5</td>
+      <td>_c4</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>TrainingInterest</th>
+      <td>_c17</td>
+      <td>_c2</td>
+      <td>0.00</td>
+      <td>_c4</td>
+      <td>_c22</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>VerificationBehavior</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c23</td>
+    </tr>
+  </tbody>
+</table></div></div></div><div class="tab-pane fade " id="mxTheta" role="tabpanel" aria-labelledby="mxTheta-tab"><ul class="nav nav-tabs" id="Thetasub" role="tablist"><li class="nav-item" role="presentation">
+<button class="nav-link active" id="ThetaEstimates-tab" data-bs-toggle="tab" data-bs-target="#ThetaEstimates"
+type="button" role="tab" aria-controls="ThetaEstimates" aria-selected="true">Estimates</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="ThetaStart-tab" data-bs-toggle="tab" data-bs-target="#ThetaStart"
+type="button" role="tab" aria-controls="ThetaStart" aria-selected="false">Start</button>
+</li><li class="nav-item" role="presentation">
+<button class="nav-link " id="ThetaNames-tab" data-bs-toggle="tab" data-bs-target="#ThetaNames"
+type="button" role="tab" aria-controls="ThetaNames" aria-selected="false">Names</button>
+</li></ul><div class="tab-content" id="sem_report.htmlsubContent"><div class="tab-pane fade show active" id="ThetaEstimates" role="tabpanel" aria-labelledby="ThetaEstimates-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>active_verify</th>
+      <th>aware_misinfo</th>
+      <th>checks_source</th>
+      <th>digital_literacy</th>
+      <th>enhances_collab</th>
+      <th>expert_access</th>
+      <th>frequency_encoded</th>
+      <th>helps_exam</th>
+      <th>platform_count</th>
+      <th>training_interest</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>active_verify</th>
+      <td>0.10</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>aware_misinfo</th>
+      <td>0.00</td>
+      <td>0.04</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>checks_source</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.14</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>digital_literacy</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.97</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.02</td>
+    </tr>
+    <tr>
+      <th>enhances_collab</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>-0.06</td>
+      <td>0.00</td>
+      <td>-0.05</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>expert_access</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>-0.06</td>
+      <td>0.18</td>
+      <td>0.00</td>
+      <td>-0.02</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>frequency_encoded</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>1.00</td>
+      <td>0.00</td>
+      <td>0.10</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>helps_exam</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>-0.05</td>
+      <td>-0.02</td>
+      <td>0.00</td>
+      <td>0.21</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>platform_count</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.10</td>
+      <td>0.00</td>
+      <td>0.99</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>training_interest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.73</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="ThetaStart" role="tabpanel" aria-labelledby="ThetaStart-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>active_verify</th>
+      <th>aware_misinfo</th>
+      <th>checks_source</th>
+      <th>digital_literacy</th>
+      <th>enhances_collab</th>
+      <th>expert_access</th>
+      <th>frequency_encoded</th>
+      <th>helps_exam</th>
+      <th>platform_count</th>
+      <th>training_interest</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>active_verify</th>
+      <td>0.12</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>aware_misinfo</th>
+      <td>0.00</td>
+      <td>0.02</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>checks_source</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.12</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>digital_literacy</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.50</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>enhances_collab</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.12</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>expert_access</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.12</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>frequency_encoded</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.50</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>helps_exam</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.12</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>platform_count</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.50</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>training_interest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.50</td>
+    </tr>
+  </tbody>
+</table></div><div class="tab-pane fade " id="ThetaNames" role="tabpanel" aria-labelledby="ThetaNames-tab"><table border="1" class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: center;">
+      <th></th>
+      <th>active_verify</th>
+      <th>aware_misinfo</th>
+      <th>checks_source</th>
+      <th>digital_literacy</th>
+      <th>enhances_collab</th>
+      <th>expert_access</th>
+      <th>frequency_encoded</th>
+      <th>helps_exam</th>
+      <th>platform_count</th>
+      <th>training_interest</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>active_verify</th>
+      <td>_c24</td>
+      <td>_c11</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>aware_misinfo</th>
+      <td>_c11</td>
+      <td>_c12</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>checks_source</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c25</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>digital_literacy</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c16</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c15</td>
+    </tr>
+    <tr>
+      <th>enhances_collab</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c26</td>
+      <td>_c9</td>
+      <td>0.00</td>
+      <td>_c6</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>expert_access</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c9</td>
+      <td>_c10</td>
+      <td>0.00</td>
+      <td>_c7</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>frequency_encoded</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c27</td>
+      <td>0.00</td>
+      <td>_c13</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>helps_exam</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c6</td>
+      <td>_c7</td>
+      <td>0.00</td>
+      <td>_c8</td>
+      <td>0.00</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>platform_count</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c13</td>
+      <td>0.00</td>
+      <td>_c14</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>training_interest</th>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c15</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>0.00</td>
+      <td>_c28</td>
+    </tr>
+  </tbody>
+</table></div></div></div></div>
+    </div>
+   </div>
+  </div>
+</div>
+<footer class="footer">
+      <div class="container">
+	<br>
+	<center>
+        <span class="text-muted">Generated by <a href="https://semopy.com"><b>semopy</b></a> v. 2.3.11.</span>
+	</center>
+      </div>
+    </footer>
+</body>
+<script>
+const menus = [document.getElementById("model_m"), document.getElementById("estimates_m"), document.getElementById("indices_m"), document.getElementById("matrices_m")];
+const headers = [document.getElementById("model"), document.getElementById("estimates"), document.getElementById("indices"), document.getElementById("matrices")];
+var cur = menus[0];
+cur.classList.add('active');
+window.addEventListener("scroll", function() {
+  headers.forEach(function(item, index, array) {
+    if (window.scrollY >= (item.offsetTop - 1.05 * item.offsetHeight)) {
+        item = menus[index];
+        cur.classList.remove("active");
+        cur = item;
+        cur.classList.add("active");
+  }
+});
+});
+</script>
+
+</html>
