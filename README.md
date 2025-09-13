@@ -98,37 +98,19 @@ statsmodels
 **▶️ Running the analysis**
 
 Activate your virtual environment (see above).
-
-Start Jupyter Notebook / Lab:
-jupyter notebook
-# or
-jupyter lab
-
-Open Sem_Model.ipynb and run the cells top-to-bottom. The notebook:
-
-loads sem_data.xlsx
-
-preprocesses & encodes variables (scales, reverse-coded items if any)
-
-builds the SEM model (measurement model + structural paths)
-
-fits the model using semopy (or the SEM library used)
-
-saves fit statistics to sem_fit_statistics.csv and parameter estimates to sem_parameter_estimates.csv
-
-includes interpretation/plots for loadings, standardized effects, and fit indices
+```bash
+Start Jupyter Notebook / Lab: Jupyter notebook or Jupyter lab
+Open Sem_Model.ipynb and run the cells top-to-bottom. 
+The notebook: loads sem_data.xlsx preprocesses & encodes variables (scales, reverse-coded items if any) builds the SEM model (measurement model + structural paths) fits the model using semopy (or the SEM library used) saves fit statistics to sem_fit_statistics.csv and parameter estimates to sem_parameter_estimates.csv includes interpretation/plots for loadings, standardized effects, and fit indices
+```
 
 ## ✅ What to check in results
 
-Model fit indices: χ², df, p-value, CFI, TLI, RMSEA (with 90% CI), SRMR.
-
-Factor loadings — check for significance and magnitude (>0.50 desirable).
-
-Standardized path coefficients — interpret effect sizes and significance.
-
-Modification indices (if used) — to consider theoretically-justified modifications only.
-
-Reliability & validity tests — Cronbach’s alpha / composite reliability, AVE.
+- Model fit indices: χ², df, p-value, CFI, TLI, RMSEA (with 90% CI), SRMR.
+- Factor loadings — check for significance and magnitude (>0.50 desirable).
+- Standardized path coefficients — interpret effect sizes and significance.
+- Modification indices (if used) — to consider theoretically-justified modifications only.
+- Reliability & validity tests — Cronbach’s alpha / composite reliability, AVE.
 
 ## 📝 Reporting & Outputs
 
@@ -143,4 +125,4 @@ Rishi Sahu
 
 ## 📜 License
 
-This project is released under the MIT License — see LICENSE for details.
+This project "Structured-Equation-Modeling" is made available for academic and educational purposes only. 
